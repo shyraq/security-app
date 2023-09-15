@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Admin</title>
+</head>
+<body>
+<div th:each="person : ${people}">
+    <a th:text="${person.getUsername() + ', ' + person.getYearOfBirth()}">user</a>
+</div>
+<br/>
+<br/>
+<form th:method="PATCH" th:action="@{/admin/add}" th:object="${person}">
+    <label for="person">Назначить администратором: </label>
+    <select th:object="${person}" th:field="*{id}" id="person">
+        <option th:each="person : ${people}" th:value="${person.getId()}"
+                th:text="${person.getUsername()}"></option>
+    </select>
+
+    <input type="submit" value="Назначить админом" />
+</form>
+<br/>
+<form th:method="DELETE" th:action="@{/admin/delete}" th:object="${person}">
+    <label for="person1">Удалить учетную запись пользователя: </label>
+    <select th:object="${person}" th:field="*{id}" id="person1">
+        <option th:each="person : ${people}" th:value="${person.getId()}"
+                th:text="${person.getUsername()}"></option>
+    </select>
+
+    <input type="submit" value="Удалить пользователя" />
+</form>
+</body>
+</html>
